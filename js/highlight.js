@@ -1,14 +1,16 @@
 (function() {
 
 var boxTemplate = '\
+<div class="highlighter-code-box-title">Insert Code</div>\
 <div class="highlighter-code-box-toolbar">\
     <label>language: <select id="codeLanguage">\
-</select></label>\
+</select>\
+</label>\
 </div>\
 <textarea id="codeInput" class="highlighter-code-input" ></textarea>\
-<div style="text-align: right;">\
-    <input id="codeCancelButton" type="button" value="cancel">\
-    <input id="codeInsertButton" type="button" value="insert">\
+<div class="highlighter-code-box-bottombar">\
+    <input id="codeCancelButton" type="button" value="Cancel">\
+    <input id="codeInsertButton" type="button" value="Insert">\
 </div>';
 
 var languages = {
@@ -48,7 +50,7 @@ var codeBox = {
         document.body.appendChild(this._dom);
         this._init = true;
         var that = this;
-        var language = document.getElementById('codeLanguage');
+        var language = this.language = document.getElementById('codeLanguage');
         var textarea = this.textarea = document.getElementById('codeInput');
         var cancel = document.getElementById('codeCancelButton');
         var insert = document.getElementById('codeInsertButton');
@@ -62,10 +64,14 @@ var codeBox = {
         }
         insert.onclick = function(){
             var text = textarea.value;
+            var lan = language.value;
             text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            text = '<pre class="brush: ' + language.value + '">' + text + '</pre>';
+            text = '<pre class="brush: ' + lan + '">' + text + '</pre>';
             that._action && that._action(text);
             that.hide();
+            if(localStorage){
+                localStorage['lastLanguage'] = lan;
+            }
         }
     },
     show: function(action) {
@@ -74,6 +80,9 @@ var codeBox = {
         }
         this.textarea.value = '';
         this._action = action;
+        if(localStorage && localStorage['lastLanguage']){
+            this.language.value = localStorage['lastLanguage'];
+        }
         this._dom.style.display = 'block';
     },
     hide: function(){
