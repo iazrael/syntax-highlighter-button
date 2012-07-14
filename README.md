@@ -1,0 +1,1 @@
+##a editor button for syntax highlighter
