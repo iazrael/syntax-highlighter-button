@@ -109,7 +109,7 @@ var codeBox = {
     create: function() {
         var styleNode = document.createElement('style');
         styleNode.innerHTML = boxStyle;
-        document.body.appendChild(styleNode);
+        document.getElementsByTagName('head')[0].appendChild(styleNode);
         
         this._dom = document.createElement('div');
         this._dom.setAttribute('class' , 'highlighter-code-box');
@@ -132,8 +132,9 @@ var codeBox = {
         insert.onclick = function(){
             var text = textarea.value;
             var lan = language.value;
+            var label = language.options[language.selectedIndex].innerHTML;
             text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-            text = '<pre class="brush: ' + lan + '">' + text + '</pre>';
+            text = '<pre class="brush: ' + lan + '; title: ' + label + '">' + text + '</pre>';
             that._action && that._action(text);
             that.hide();
             if(localStorage){
