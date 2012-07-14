@@ -1,5 +1,68 @@
 (function() {
 
+var boxStyle = '.highlighter-code-box {\
+    background: #F1F1F1;\
+    position: absolute;\
+    left: 50% ;\
+    top: 50% ;\
+    border: 1px solid #999;\
+    width: 460px;\
+    height: 420px;\
+    margin: -210px 0 0 -230px;\
+    line-height: 25px;\
+    border-radius: 3px 3px 0 0;\
+}\
+.highlighter-code-box-title{\
+    height: 25px;\
+    background: #444;\
+    color: #fff;\
+    text-align: center;\
+\
+    vertical-align: baseline;\
+    font-family: Arial,Verdana;\
+    font-size: 11px;\
+    \
+}\
+.highlighter-code-box-toolbar{\
+    padding: 5px 15px;\
+}\
+.highlighter-code-input{\
+    width: 430px;\
+    height: 310px;\
+    font-family: "Courier New", Courier, mono;\
+    font-size: 12px;\
+    border: 1px solid #DFDFDF;\
+    margin: 0 auto;\
+    display: block;\
+    resize: none;\
+}\
+.highlighter-code-box-bottombar{\
+    text-align: right;\
+    padding: 5px 15px;\
+}\
+.highlighter-code-box-bottombar input{\
+    border: 1px solid #BBB;\
+    margin: 0;\
+    padding: 0 0 1px;\
+    font-weight: bold;\
+    font-size: 11px;\
+    width: 94px;\
+    height: 24px;\
+    color: black;\
+    cursor: pointer;\
+    border-radius: 3px;\
+    background-color: #EEE;\
+    background-image: -ms-linear-gradient(bottom, #DDD, white);\
+    background-image: -moz-linear-gradient(bottom, #DDD, white);\
+    background-image: -o-linear-gradient(bottom, #DDD, white);\
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#DDD), to(white));\
+    background-image: -webkit-linear-gradient(bottom, #DDD, white);\
+    background-image: linear-gradient(bottom, #DDD, white);\
+}\
+.highlighter-code-box-bottombar input:hover{\
+    border: 1px solid #555;\
+}';
+
 var boxTemplate = '\
 <div class="highlighter-code-box-title">Insert Code</div>\
 <div class="highlighter-code-box-toolbar">\
@@ -44,6 +107,10 @@ var languages = {
 
 var codeBox = {
     create: function() {
+        var styleNode = document.createElement('style');
+        styleNode.innerHTML = boxStyle;
+        document.body.appendChild(styleNode);
+        
         this._dom = document.createElement('div');
         this._dom.setAttribute('class' , 'highlighter-code-box');
         this._dom.innerHTML = boxTemplate;
@@ -90,7 +157,7 @@ var codeBox = {
         this._dom.style.display = 'none';
     }
 };
-codeBox.show();
+
 tinymce.create('tinymce.plugins.highlight', {
     init : function(ed, url) {
         ed.addButton('highlight', {

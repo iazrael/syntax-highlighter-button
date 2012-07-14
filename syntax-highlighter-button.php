@@ -12,12 +12,10 @@ function insert_code_button(){
     if ( ! current_user_can('edit_posts') && ! current_user_can('edit_pages') ) {
             return;
     }
-    $plugin_name = dirname(__FILE__);
-    $plugin_name = substr($plugin_name, strripos($plugin_name,'/plugins') + strlen('/plugins'));
-    $stylesheet = get_option( 'siteurl' ) . '/wp-content/plugins' . $plugin_name . '/css/style.css';
-    add_editor_style( $stylesheet ); 
     add_filter( 'mce_external_plugins', 'add_highlight_button_plugin' );
     add_filter( 'mce_buttons', 'register_highlight_button' );
+    // not work
+    // add_filter( 'mce_css', 'add_highlight_button_style' );
 }
     
 function register_highlight_button( $buttons ) {
@@ -25,10 +23,15 @@ function register_highlight_button( $buttons ) {
     return $buttons;
 }
 
+function add_highlight_button_style($mce_css ){
+    if ( ! empty( $mce_css ) )
+        $mce_css .= ',';
+    $mce_css .= plugins_url( 'css/style.css', __FILE__ );
+    return $mce_css;
+}
+
 function add_highlight_button_plugin(){
-    $plugin_name = dirname(__FILE__);
-    $plugin_name = substr($plugin_name, strripos($plugin_name,'/plugins') + strlen('/plugins'));
-    $plugin_array['highlight'] = get_option( 'siteurl' ) . '/wp-content/plugins' . $plugin_name . '/js/highlight.js';
+    $plugin_array['highlight'] =  plugins_url('js/highlight.js', __FILE__);
     return $plugin_array;
 }
 
