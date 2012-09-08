@@ -2,7 +2,7 @@
 
 var boxStyle = '.highlighter-code-box {\
     background: #F1F1F1;\
-    position: absolute;\
+    position: fixed;\
     left: 50% ;\
     top: 50% ;\
     border: 1px solid #999;\
@@ -90,6 +90,7 @@ var languages = {
     Diff:    'diff',
     Erlang:  'erlang',
     Groovy:  'groovy',
+    Html:    'xml',
     Java:    'java',
     JavaFX:  'javafx',
     JavaScript: 'js',

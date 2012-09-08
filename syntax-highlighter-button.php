@@ -3,7 +3,7 @@
 Plugin Name: Syntax Highlighter Button
 Plugin URI: http://imatlas.com/posts/quick-code-button-wordpress/
 Description: 给Wordpress的编辑器增加插入Syntax Highlighter代码的按钮
-Version: 1.0
+Version: 1.3
 Author: imatlas
 Author URI: http://imatlas.com/
 */
