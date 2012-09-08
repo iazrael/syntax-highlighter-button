@@ -127,6 +127,18 @@ var codeBox = {
             html += '<option value="' + languages[i] + '">' + i + '</option>';
         }
         language.innerHTML = html;
+        textarea.onkeydown = function(e){
+            if(e.keyCode == 9){//tab
+                e.preventDefault();
+                var start = this.selectionStart, end = this.selectionEnd;
+                var text = this.value;
+                var tab = '    ';
+                text = text.substr(0, start) + tab + text.substr(start);
+                this.value = text;
+                this.selectionStart = start + tab.length;
+                this.selectionEnd = end + tab.length;
+            }
+        }
         cancel.onclick = function(){
             that.hide();
         }
